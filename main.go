@@ -2,11 +2,14 @@ package main
 
 import (
     "flag"
+    "fmt"
     "io/ioutil"
     "net/url"
     "os"
     "strings"
 )
+
+var version string = "--"
 
 func restoreSpaces(s string) string {
     return strings.ReplaceAll(strings.ReplaceAll(s, "%20", " "), "+", " ")
@@ -18,6 +21,13 @@ func main() {
     keepSpaces := flag.Bool("keep-spaces", false, "keep spaces as they are")
     usePathEscape := flag.Bool("path-escape", false, "use PathEscape in place of QueryEscape")
     trimSpaces := flag.Bool("trim", false, "trim (from both sides) spaces and new lines")
+    // Help message
+    flag.Usage = func() {
+        fmt.Fprintf(os.Stderr, "urlencode (version: %s, executable: %s)\n\n", version, os.Args[0])
+        fmt.Fprintf(os.Stderr, "This program is a thin wrapper around the standard go url escape functions.\nAvailable flgs:\n\n")
+        flag.PrintDefaults()
+        fmt.Fprintf(os.Stderr, "\n")
+    }
     // parse flags
     flag.Parse()
 
