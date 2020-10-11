@@ -23,7 +23,7 @@ func main() {
     trimSpaces := flag.Bool("trim", false, "trim (from both sides) spaces and new lines")
     // Help message
     flag.Usage = func() {
-        fmt.Fprintf(os.Stderr, "urlencode (version: %s, executable: %s)\n\n", version, os.Args[0])
+        fmt.Fprintf(os.Stderr, "urlencode (version: %s)\n\n", version)
         fmt.Fprintf(os.Stderr, "This program is a thin wrapper around the standard go url escape functions.\nAvailable flgs:\n\n")
         flag.PrintDefaults()
         fmt.Fprintf(os.Stderr, "\n")
