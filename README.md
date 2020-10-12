@@ -9,7 +9,7 @@ This tool is a thin wrapper around the standard go escape functions `PathEscape`
 urlencode (version: v0.4.0)
 
 This program is a thin wrapper around the standard go url escape functions.
-Available flgs:
+Available flags:
 
   -keep-spaces
         keep spaces as they are
@@ -20,23 +20,34 @@ Available flgs:
 ```
 
 ```bash
-echo " Ceci est un message étrage " | urlencode
-+Ceci+est+un+message+%C3%A9trage+%0A
+echo " Ceci est un message étrange " | urlencode
++Ceci+est+un+message+%C3%A9trange+%0A
 ```
 
 ```bash
-echo " Ceci est un message étrage " | urlencode -keep-spaces
- Ceci est un message %C3%A9trage %0A
+echo " Ceci est un message étrange " | urlencode -keep-spaces
+ Ceci est un message %C3%A9trange %0A
 ```
 
 ```bash
-echo " Ceci est un message étrage " | urlencode -path-escape
-%20Ceci%20est%20un%20message%20%C3%A9trage%20%0A
+echo " Ceci est un message étrange " | urlencode -path-escape
+%20Ceci%20est%20un%20message%20%C3%A9trange%20%0A
 ```
 
 ```bash
-echo " Ceci est un message étrage " | urlencode -trim
-Ceci+est+un+message+%C3%A9trage
+echo " Ceci est un message étrange " | urlencode -trim
+Ceci+est+un+message+%C3%A9trange
 ```
 
 Note : `echo` adds a new line at the end that is visible as `%0A` if no trim option is used.
+
+## Some explanations
+
+The url encoding is not the same before the `?` and after it.
+
+- Before the `?` the spaces should be encodes as `%20` (and not `+`). This part is encoded with `PathEscape` go function.
+- After the `?` the spaces could be encodes as `+` (`%20` is also possible but is longer ). This part is encoded with `QueryEscape` go function.
+
+For mode info you can check [this answer](https://stackoverflow.com/a/29948396) at SX.
+
+If you want to encode some text in `data:` uri, for example in the case of `data:image/xml+svg, ...` you can use `urlencode -path-escape -keep-spaces -trim`.

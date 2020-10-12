@@ -11,10 +11,6 @@ import (
 
 var version string = "--"
 
-func restoreSpaces(s string) string {
-    return strings.ReplaceAll(strings.ReplaceAll(s, "%20", " "), "+", " ")
-}
-
 // ======================================================
 func main() {
     // declare flags
@@ -24,7 +20,7 @@ func main() {
     // Help message
     flag.Usage = func() {
         fmt.Fprintf(os.Stderr, "urlencode (version: %s)\n\n", version)
-        fmt.Fprintf(os.Stderr, "This program is a thin wrapper around the standard go url escape functions.\nAvailable flgs:\n\n")
+        fmt.Fprintf(os.Stderr, "This program is a thin wrapper around the standard go url escape functions.\nAvailable flags:\n\n")
         flag.PrintDefaults()
         fmt.Fprintf(os.Stderr, "\n")
     }
@@ -53,7 +49,11 @@ func main() {
 
     // recover spaces if needed
     if *keepSpaces {
-        str = restoreSpaces(str)
+        space := "+"
+        if *usePathEscape {
+            space = "%20"
+        }
+        str = strings.ReplaceAll(str, space, " ")
     }
 
     // write escaped string to stdout
