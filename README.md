@@ -4,8 +4,8 @@ This tool is a thin wrapper around the standard go escape functions `PathEscape`
 
 ## Examples
 
-```bash
-> ./urlencode.exe -h
+```console
+$ ./urlencode.exe -h
 urlencode (version: v0.4.0)
 
 This program is a thin wrapper around the standard go url escape functions.
@@ -19,23 +19,23 @@ Available flags:
         trim (from both sides) spaces and new lines
 ```
 
-```bash
-echo " Ceci est un message étrange " | urlencode
+```console
+$ echo " Ceci est un message étrange " | urlencode
 +Ceci+est+un+message+%C3%A9trange+%0A
 ```
 
-```bash
-echo " Ceci est un message étrange " | urlencode -keep-spaces
+```console
+$ echo " Ceci est un message étrange " | urlencode -keep-spaces
  Ceci est un message %C3%A9trange %0A
 ```
 
-```bash
-echo " Ceci est un message étrange " | urlencode -path-escape
+```console
+$ echo " Ceci est un message étrange " | urlencode -path-escape
 %20Ceci%20est%20un%20message%20%C3%A9trange%20%0A
 ```
 
-```bash
-echo " Ceci est un message étrange " | urlencode -trim
+```console
+$ echo " Ceci est un message étrange " | urlencode -trim
 Ceci+est+un+message+%C3%A9trange
 ```
 
