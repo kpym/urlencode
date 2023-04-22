@@ -6,17 +6,24 @@ This tool is a thin wrapper around the standard go escape functions `PathEscape`
 
 ```console
 $ ./urlencode.exe -h
-urlencode (version: v0.4.0)
+urlencode (version: v0.7.0)
 
 This program is a thin wrapper around the standard go url escape functions.
 Available flags:
 
+  -input string
+    	string to escape, if empty (default) read from stdin
   -keep-spaces
-        keep spaces as they are
+    	keep spaces as they are
   -path-escape
-        use PathEscape in place of QueryEscape
+    	use PathEscape instead of QueryEscape
   -trim
-        trim (from both sides) spaces and new lines
+    	trim (from both sides) whitespaces and newlines
+```
+
+```console
+$ urlencode -input " Ceci est un message étrange "
++Ceci+est+un+message+%C3%A9trange+
 ```
 
 ```console
